@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">ClimaApi</string>
+    <string name="splash_title">Clima Diário</string>
+    <string name="splash_description">Obtenha a previsão do tempo para o seu dia.
+Mantenha-se informado e preparado.</string>
+    <string name="about_today">Sobre Hoje</string>
+    <string name="menu">Menu</string>
+    <string name="location">Localização</string>
+    <string name="florida_usa">Florida, EUA</string>
+    <string name="search_placeholder">Buscar local</string>
+    <string name="search_contentdesc">Buscar</string>
+    <string name="date_sample">Quarta-feira, 25 de Maio</string>
+    <string name="degrees_sample">19°</string>
+    <string name="tomorrow_label">amanhã</string>
+    <string name="pas_tomorrow_label">Depois de amanhã</string>
+    <string name="today_label">Hoje</string>
+    <string name="wind_label">Vento</string>
+    <string name="humidity_label">Umidade</string>
+    <string name="today_value">10°C</string>
+    <string name="tomorrow_value">10°C</string>
+    <string name="pas_tomorrow_value">10°C</string>
+    <string name="location_info">Bog, COL</string>
+</resources>

@@ -7,4 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- Splash Screen Gradient Colors -->
+    <color name="splash_gradient_dark">#FF0D1B2A</color>
+    <color name="splash_gradient_dark_blue">#FF1B263B</color>
+    <color name="splash_gradient_medium_blue">#FF415A77</color>
+    <color name="splash_gradient_night_blue">#FF2E4A6B</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Home Screen Colors -->
+    <color name="home_color_box_blue">#FF232946</color>
+    <color name="home_color_box_white">#FF2E4A6B</color>
+    <color name="home_header_color_box">#331e1e1e</color>
+    <color name="home_header_icon_color">#FF5DE0FF</color>
+
 </resources>

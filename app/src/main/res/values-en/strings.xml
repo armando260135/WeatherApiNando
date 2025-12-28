@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">WeatherApi</string>
+    <string name="splash_title">Daily Weather</string>
+    <string name="splash_description">Get the weather forecast for your day.
+Stay informed and prepared.</string>
+    <string name="about_today">About Today</string>
+    <string name="menu">Menu</string>
+    <string name="location">Location</string>
+    <string name="florida_usa">Florida, USA</string>
+    <string name="search_placeholder">Search location</string>
+    <string name="search_contentdesc">Search</string>
+    <string name="date_sample">Wednesday, 25 May</string>
+    <string name="degrees_sample">19°</string>
+    <string name="tomorrow_label">Tomorrow</string>
+    <string name="pas_tomorrow_label">The day after tomorrow</string>
+    <string name="today_label">Today</string>
+    <string name="wind_label">Wind</string>
+    <string name="humidity_label">Humidity</string>
+    <string name="today_value">10°C</string>
+    <string name="tomorrow_value">10°C</string>
+    <string name="pas_tomorrow_value">10°C</string>
+    <string name="location_info">Bog, COL</string>
+</resources>
