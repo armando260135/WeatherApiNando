@@ -13,7 +13,8 @@ import com.example.weatherapinando.weather.domain.models.WeatherDetails
 fun ForecastResponse.toDomain(): WeatherDetails {
     return WeatherDetails(
         location = Location(
-            locationSearch = this.location.name, country = this.location.country
+            locationSearch = this.location.name,
+            country = this.location.country
         ),
         actualWeather = ActuallyWeather(
             currentTemperatureC = this.current.tempC,

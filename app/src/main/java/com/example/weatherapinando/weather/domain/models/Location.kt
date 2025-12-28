@@ -1,5 +1,7 @@
 package com.example.weatherapinando.weather.domain.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Represents a geographic location.
  *
@@ -7,6 +9,7 @@ package com.example.weatherapinando.weather.domain.models
  * @property country The country where the location is situated.
  */
 data class Location(
+    @SerializedName("name")
     val locationSearch: String,
     val country: String,
 )

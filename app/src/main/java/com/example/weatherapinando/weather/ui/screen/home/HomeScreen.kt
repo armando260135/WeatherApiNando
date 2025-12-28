@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -25,19 +24,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Place
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -51,7 +45,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -63,18 +56,22 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.weatherapinando.R
 import com.example.weatherapinando.weather.domain.WeatherResultRepository
 import com.example.weatherapinando.weather.domain.models.WeatherDetails
+import com.example.weatherapinando.weather.ui.screen.commos.CommonsUtils.TEXT_EMPTY
 import com.example.weatherapinando.weather.ui.screen.commos.CommonsUtils.TEXT_HTTPS
 import com.example.weatherapinando.weather.ui.screen.commos.CommonsUtils.TEXT_NEUTRAL_WEATHER
 import com.example.weatherapinando.weather.ui.screen.commos.CommonsUtils.TEXT_TEMPERATURE_CELSIUS
 import com.example.weatherapinando.weather.ui.screen.commos.CommonsUtils.TEXT_TEMPERATURE_NEUTRAL
 import com.example.weatherapinando.weather.ui.screen.commos.CommonsUtils.getFormattedDate
 import com.example.weatherapinando.weather.ui.screen.commos.ImageAsync
+import com.example.weatherapinando.weather.ui.screen.search.SearchScreen
 import com.example.weatherapinando.weather.ui.viewmodels.HomeScreenViewModel
+import com.example.weatherapinando.weather.ui.viewmodels.SearchViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(
-    viewModel: HomeScreenViewModel = hiltViewModel()
+    viewModel: HomeScreenViewModel = hiltViewModel(),
+    viewModelSearch: SearchViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(Unit) {
         viewModel.initialWeather()
@@ -82,41 +79,72 @@ fun HomeScreen(
 
     val weatherState by viewModel.locationsWeather.observeAsState()
 
+    WeatherContentState(
+        weatherState = weatherState,
+        viewModelSearch = viewModelSearch,
+        onCitySelected = { selectedCity ->
+            viewModel.searchWeatherForLocationCustom(selectedCity)
+        }
+    )
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+private fun WeatherContentState(
+    weatherState: WeatherResultRepository<WeatherDetails>?,
+    viewModelSearch: SearchViewModel,
+    onCitySelected: (String) -> Unit
+) {
     Box(modifier = Modifier.fillMaxSize()) {
-        when (val state = weatherState) {
+        when (weatherState) {
             is WeatherResultRepository.Success -> {
-                ContentStructureHomeScreen(state.data)
+                ContentStructureHomeScreen(weatherState.data, viewModelSearch, onCitySelected)
             }
 
             is WeatherResultRepository.Error -> {
-                Text(text = state.message)
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(
+                        text = weatherState.message,
+                        color = Color.Red,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
 
             else -> {
-                // Estado de carga (Loading o null)
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    colorResource(R.color.home_color_box_blue),
-                                    colorResource(R.color.home_color_box_white)
-                                )
-                            )
-                        )
-                ) {
-                    CircularProgressIndicator(color = Color.White)
-                }
+                WeatherLoadingScreen()
             }
         }
     }
 }
 
-
 @Composable
-private fun ContentStructureHomeScreen(weatherDetailInitial: WeatherDetails?) {
+private fun WeatherLoadingScreen() {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        colorResource(R.color.home_color_box_blue),
+                        colorResource(R.color.home_color_box_white)
+                    )
+                )
+            )
+    ) {
+        CircularProgressIndicator(color = Color.White)
+    }
+}
+
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun ContentStructureHomeScreen(
+    weatherDetailInitial: WeatherDetails?,
+    viewModelSearch: SearchViewModel,
+    onCitySelected: (String) -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -131,7 +159,7 @@ private fun ContentStructureHomeScreen(weatherDetailInitial: WeatherDetails?) {
             .padding(horizontal = 16.dp)
     ) {
         AnimationBackground()
-        ContentUIHomeScreen(weatherDetailInitial)
+        ContentUIHomeScreen(weatherDetailInitial, viewModelSearch, onCitySelected)
     }
 }
 
@@ -150,17 +178,26 @@ private fun AnimationBackground() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-private fun ContentUIHomeScreen(weatherDetailInitial: WeatherDetails?) {
+fun ContentUIHomeScreen(
+    weatherDetailInitial: WeatherDetails?,
+    viewModelSearch: SearchViewModel,
+    onCitySelected: (String) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HeaderTopBar()
+        HeaderTopBar(weatherDetailInitial)
         TodayTitle(weatherDetailInitial)
-        SearchBarHome()
+        SearchScreen(
+            searchParam = "",
+            viewModelSearch = viewModelSearch,
+            onCitySelected = onCitySelected
+        )
         Spacer(modifier = Modifier.height(16.dp))
         ConditionTitle(weatherDetailInitial)
         WeatherImageMain(weatherDetailInitial)
@@ -173,7 +210,7 @@ private fun ContentUIHomeScreen(weatherDetailInitial: WeatherDetails?) {
 }
 
 @Composable
-fun HeaderTopBar() {
+fun HeaderTopBar(weatherDetailInitial: WeatherDetails?) {
     val contextDescription = stringResource(R.string.location_info)
 
     Row(
@@ -208,7 +245,11 @@ fun HeaderTopBar() {
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
-                text = stringResource(R.string.location_info),
+                text = stringResource(
+                    R.string.location_info,
+                    weatherDetailInitial?.location?.locationSearch ?: TEXT_NEUTRAL_WEATHER,
+                    weatherDetailInitial?.location?.country ?: TEXT_NEUTRAL_WEATHER
+                ),
                 color = Color.White,
                 fontSize = 17.sp
             )
@@ -320,21 +361,25 @@ fun WeatherInfoRow(weatherDetailInitial: WeatherDetails?) {
         for (i in 0..2) {
             if (i == 0) {
                 val icon =
-                    "https:${weatherDetailInitial?.actualWeather?.descriptionWeather?.iconWeather.orEmpty()}"
+                    "$TEXT_HTTPS${weatherDetailInitial?.actualWeather?.descriptionWeather?.iconWeather.orEmpty()}"
                 val temp =
-                    weatherDetailInitial?.actualWeather?.currentTemperatureC?.toString() ?: "--"
-                val date = weatherDetailInitial?.actualWeather?.lastUpdated?.substringBefore(" ")
-                    ?: defaultDateText[i]
-                val wind = weatherDetailInitial?.actualWeather?.windInKph?.toString() ?: "--"
+                    weatherDetailInitial?.actualWeather?.currentTemperatureC?.toString()
+                        ?: TEXT_NEUTRAL_WEATHER
+                val date =
+                    weatherDetailInitial?.actualWeather?.lastUpdated?.substringBefore(TEXT_EMPTY)
+                        ?: defaultDateText[i]
+                val wind = weatherDetailInitial?.actualWeather?.windInKph?.toString()
+                    ?: TEXT_NEUTRAL_WEATHER
                 val title = stringResource(labelRes[i], temp)
                 items += Info(icon, title, date, wind)
             } else {
                 val day = forecastDays.getOrNull(i)
                 val icon =
-                    "https:${day?.detailWeatherDay?.descriptionWeather?.iconWeather.orEmpty()}"
-                val temp = day?.detailWeatherDay?.temperatureCelsius?.toString() ?: "--"
+                    "$TEXT_HTTPS${day?.detailWeatherDay?.descriptionWeather?.iconWeather.orEmpty()}"
+                val temp =
+                    day?.detailWeatherDay?.temperatureCelsius?.toString() ?: TEXT_NEUTRAL_WEATHER
                 val date = day?.date ?: defaultDateText[i]
-                val wind = day?.detailWeatherDay?.maxWindKph?.toString() ?: "--"
+                val wind = day?.detailWeatherDay?.maxWindKph?.toString() ?: TEXT_NEUTRAL_WEATHER
                 val title = stringResource(labelRes[i], temp)
                 items += Info(icon, title, date, wind)
             }
@@ -349,36 +394,6 @@ fun WeatherInfoRow(weatherDetailInitial: WeatherDetails?) {
             )
         }
     }
-}
-
-
-@Composable
-fun SearchBarHome() {
-    var search by remember { mutableStateOf("") }
-
-    OutlinedTextField(
-        value = search,
-        onValueChange = { search = it },
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(max = 70.dp),
-        shape = RoundedCornerShape(20.dp),
-        placeholder = {
-            Text(
-                stringResource(R.string.search_placeholder),
-                color = Color.White.copy(alpha = 0.6f)
-            )
-        },
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = stringResource(R.string.search_contentdesc),
-                tint = Color.White.copy(alpha = 0.85f)
-            )
-        },
-        singleLine = true,
-        maxLines = 1
-    )
 }
 
 @Composable
@@ -460,12 +475,4 @@ private fun InfoColumn(
         Text(title, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
         Text(subtitle, color = Color(0xFFCDD0FC), fontSize = 14.sp)
     }
-}
-
-
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview(showBackground = true)
-@Composable
-private fun HomeScreenPreview() {
-    HomeScreen()
 }

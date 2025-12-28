@@ -14,10 +14,3 @@ object Splash
  */
 @Serializable
 object Home
-
-/**
- * Represents the navigation destination for the search screen,
- * allowing users to look up weather information for different locations.
- */
-@Serializable
-object Search

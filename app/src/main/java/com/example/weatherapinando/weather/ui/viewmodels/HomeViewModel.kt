@@ -32,11 +32,10 @@ class HomeScreenViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val result = weatherForLocation(country)
-
                 _locationWeather.value = result
 
             } catch (e: Exception) {
-                _locationWeather.value = WeatherResultRepository.Error("Error inesperado", e)
+                _locationWeather.value = WeatherResultRepository.Error("Error", e)
             }
         }
     }

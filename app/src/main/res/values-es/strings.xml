@@ -2,7 +2,7 @@
     <string name="app_name">ClimaApi</string>
     <string name="splash_title">Clima Diario</string>
     <string name="splash_description">Obtén el pronóstico del clima para tu día.\nMantente informado y preparado.</string>
-    <string name="location_info">Bog, Col</string>
+    <string name="location_info">%1$s, %2$s</string>
     <string name="about_today">Tu clima hoy en %1$s</string>
     <string name="text_temp">Temperatura</string>
     <string name="text_wind">Viento</string>

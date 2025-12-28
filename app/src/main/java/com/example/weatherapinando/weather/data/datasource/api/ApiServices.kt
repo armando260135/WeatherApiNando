@@ -7,13 +7,6 @@ import retrofit2.http.Query
 import javax.inject.Qualifier
 
 interface ApiServices {
-
-    @GET("search.json")
-    suspend fun searchWeatherForLocation(
-        @Query("key") apiKey: String,
-        @Query("q") query: String
-    ): List<Location>
-
     @GET("search.json")
     suspend fun weatherForInitialLocation(
         @Query("key") apiKey: String,
