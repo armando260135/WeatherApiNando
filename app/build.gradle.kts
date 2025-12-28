@@ -124,6 +124,9 @@ dependencies {
     // --- [ TESTING - UNIT ] ---
     // Local unit tests for Business Logic, Use Cases, and ViewModels
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.arch.core.testing)
 
     // --- [ TESTING - INSTRUMENTATION ] ---
     // UI and Integration tests on physical devices or emulators

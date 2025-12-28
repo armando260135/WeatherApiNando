@@ -22,6 +22,9 @@ splashScreen = "1.0.1"
 retrofit = "3.0.0"
 kotlinParcelize = "2.1.21"
 coil = "2.5.0"
+mockk = "1.13.5"
+kotlinxCoroutinesTest = "1.7.3"
+androidxArchCoreTesting = "2.2.0"
 
 
 [libraries]
@@ -72,6 +75,9 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+androidx-arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "androidxArchCoreTesting" }
 
 [plugins]
 # --- [ ANDROID & KOTLIN ] ---
