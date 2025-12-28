@@ -13,6 +13,7 @@ plugins {
     // --- [ DEPENDENCY INJECTION ] ---
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt.android)
+    id("app.cash.paparazzi")
 }
 
 android {
