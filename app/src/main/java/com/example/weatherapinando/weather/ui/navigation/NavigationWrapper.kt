@@ -11,6 +11,7 @@ import com.example.weatherapinando.weather.ui.screen.search.SearchScreen
 import com.example.weatherapinando.weather.ui.screen.splash.SplashScreen
 import com.example.weatherapinando.weather.ui.screen.home.HomeScreen
 import com.example.weatherapinando.weather.ui.viewmodels.HomeScreenViewModel
+import com.example.weatherapinando.weather.ui.viewmodels.SearchViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -26,12 +27,13 @@ internal fun NavigationWrapper() {
         }
 
         composable<Home> {
-            val viewModel = hiltViewModel<HomeScreenViewModel>()
-            HomeScreen(viewModel)
-        }
+            val viewModelHome = hiltViewModel<HomeScreenViewModel>()
+            val viewModelSearch = hiltViewModel<SearchViewModel>()
 
-        composable<Search> {
-            SearchScreen()
+            HomeScreen(
+                viewModel = viewModelHome,
+                viewModelSearch = viewModelSearch,
+            )
         }
     }
 }

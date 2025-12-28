@@ -17,5 +17,5 @@ Stay informed and prepared.</string>
     <string name="today_value">%1$s°C</string>
     <string name="tomorrow_value">%1$s°C</string>
     <string name="pas_tomorrow_value">%1$s°C</string>
-    <string name="location_info">Bog, Col</string>
+    <string name="location_info">%1$s, %2$s</string>
 </resources>

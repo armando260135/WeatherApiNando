@@ -19,7 +19,7 @@ class LocationWeatherApiServiceImpl @Inject constructor(
         return locationService.weatherForInitialLocation(
             apiKey = apiKey,
             query = query
-        ) ?: emptyList()
+        )
     }
 
     override suspend fun fetchWeatherDetails(cityName: String): WeatherDetails {
