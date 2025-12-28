@@ -1,6 +1,6 @@
 package com.example.weatherapinando.weather.data.datasource.api
 
-import com.example.weatherapinando.weather.data.datasource.ForecastResponse
+import com.example.weatherapinando.weather.data.datasource.serializedData.Weather
 import com.example.weatherapinando.weather.domain.models.Location
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -18,7 +18,7 @@ interface ApiServices {
         @Query("key") apiKey: String,
         @Query("q") location: String,
         @Query("days") days: Int
-    ): ForecastResponse
+    ): Weather
 }
 
 @Retention(AnnotationRetention.BINARY)
