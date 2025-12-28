@@ -3,8 +3,10 @@
     <string name="splash_title">Clima Diário</string>
     <string name="splash_description">Obtenha a previsão do tempo para o seu dia.
 Mantenha-se informado e preparado.</string>
-    <string name="about_today">Sobre Hoje</string>
+    <string name="about_today">Sobre Hoje en %1$s</string>
     <string name="menu">Menu</string>
+    <string name="text_temp">Temperatura</string>
+    <string name="text_wind">Vento</string>
     <string name="location">Localização</string>
     <string name="florida_usa">Florida, EUA</string>
     <string name="search_placeholder">Buscar local</string>
@@ -16,8 +18,8 @@ Mantenha-se informado e preparado.</string>
     <string name="today_label">Hoje</string>
     <string name="wind_label">Vento</string>
     <string name="humidity_label">Umidade</string>
-    <string name="today_value">10°C</string>
-    <string name="tomorrow_value">10°C</string>
-    <string name="pas_tomorrow_value">10°C</string>
-    <string name="location_info">Bog, COL</string>
+    <string name="today_value">%1$s°C</string>
+    <string name="tomorrow_value">%1$s°C</string>
+    <string name="pas_tomorrow_value">%1$s°C</string>
+    <string name="location_info">Bog, Col</string>
 </resources>
