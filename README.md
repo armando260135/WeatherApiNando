@@ -73,4 +73,4 @@ Sigue estos pasos para poner en marcha el proyecto en tu entorno local:
   ```
 4. Sincronizar: Haz clic en "Sync Project with Gradle Files" y ejecuta la aplicación.
    
-Desarrollado por Armando José Pineda Paredes Proyecto para Evaluación Técnica - Android Developer
+Desarrollado por Armando José Pineda Paredes - Android Developer
