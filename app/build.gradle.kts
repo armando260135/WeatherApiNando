@@ -1,9 +1,16 @@
 plugins {
+    // --- [ ANDROID & KOTLIN CORE ] ---
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    // --- [ UI & COMPOSE ] ---
     alias(libs.plugins.kotlin.compose)
+
+    // --- [ DATA & SERIALIZATION ] ---
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
+
+    // --- [ DEPENDENCY INJECTION ] ---
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt.android)
 }
@@ -68,51 +75,65 @@ android {
 }
 
 dependencies {
+
+    // --- [ CORE & ANDROIDX ] ---
+    // Essential Kotlin extensions, Lifecycle management, and Splash Screen support
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-
-    // TODO agregar comentario
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.core.splashscreen)
 
-    implementation(libs.androidx.activity.compose)
+    // --- [ JETPACK COMPOSE ] ---
+    // Core declarative UI libraries and Material Design 3 components
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
-    // TODO agregar comentario
-    implementation(libs.lottie)
-
-    // TODO agregar comentario
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.androidx.core.splashscreen)
-
-    // TODO agregar comentario
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.adapter)
-    implementation(libs.logging.interceptor)
-    implementation(libs.converter.gson)
-
-
-    // Dagger Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.coil.compose)
-
+    // Compose integration with Lifecycle, ViewModels, and LiveData observers
     implementation(libs.androidx.compose.runtime.livedata)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
+    // --- [ NAVIGATION ] ---
+    // Type-safe navigation management and JSON serialization
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+
+    // --- [ DEPENDENCY INJECTION (HILT) ] ---
+    // Dagger Hilt for dependency injection and Hilt-Navigation integration
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    // --- [ NETWORK & API (RETROFIT) ] ---
+    // REST API consumption, logging, and data parsing (GSON)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.adapter)
+    implementation(libs.logging.interceptor)
+    implementation(libs.converter.gson)
     implementation(libs.gson)
 
+    // --- [ MEDIA & ANIMATIONS ] ---
+    // Image loading from URL (Coil) and vector animations (Lottie)
+    implementation(libs.coil.compose)
+    implementation(libs.lottie)
+
+    // --- [ TESTING - UNIT ] ---
+    // Local unit tests for Business Logic, Use Cases, and ViewModels
     testImplementation(libs.junit)
+
+    // --- [ TESTING - INSTRUMENTATION ] ---
+    // UI and Integration tests on physical devices or emulators
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+
+    // --- [ DEBUG TOOLS ] ---
+    // UI Inspection tools and test manifest for debugging
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
