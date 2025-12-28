@@ -71,7 +71,7 @@ fun SearchScreen(
             SearchResultState(
                 state = countryResultsState,
                 onCitySelected = { fullCityName ->
-                    textFieldValue = fullCityName
+                    textFieldValue = ""
                     onCitySelected(fullCityName)
                     viewModelSearch.clearSearchResults()
                 }
