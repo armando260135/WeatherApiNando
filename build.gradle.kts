@@ -13,4 +13,5 @@ plugins {
     // --- [ DEPENDENCY INJECTION ] ---
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.hilt.android) apply false
+    id("app.cash.paparazzi") version "1.3.4" apply false
 }
