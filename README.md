@@ -13,8 +13,8 @@ Una aplicación de clima moderna y robusta construida para demostrar mejores pr�
 - **Búsqueda Inteligente:** Sistema de sugerencias dinámico integrado en la Home que permite buscar ciudades mientras escribes sin cambiar de pantalla a través de una ventana flotante (dropdown).
 - **Visualización Detallada:** Información en tiempo real sobre temperatura, viento, humedad y condiciones climáticas actuales para hoy, mañana y los próximos días.
 - **Arquitectura de Capas:** Separación clara de responsabilidades siguiendo los principios de **Clean Architecture** (Domain, Data, UI).
-- **Gestión de Estados Pro:** Manejo exhaustivo de estados (Loading, Success, Error) mediante `Sealed Classes` y `Flows`.
-- **Mapeo de Errores Profesional:** Traducción de excepciones técnicas (`HttpException`, `IOException`) a mensajes amigables para el usuario final.
+- **Gestión de Estados:** Manejo exhaustivo de estados (Loading, Success, Error) mediante `Sealed Classes` y `Flows`.
+- **Mapeo de Errores:** Traducción de excepciones técnicas (`HttpException`, `IOException`) a mensajes amigables para el usuario final.
 - **Internacionalización:** Soporte completo para **Español, Inglés y Portugués** mediante un sistema de `UiText` para evitar dependencias de Android en la capa de Dominio.
 - **Animaciones Lottie:** Experiencia inmersiva desde el inicio con un Splash Screen animado y transiciones fluidas.
 
