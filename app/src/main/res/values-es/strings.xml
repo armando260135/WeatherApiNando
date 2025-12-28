@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ClimaApi</string>
+    <string name="splash_title">Clima Diario</string>
+    <string name="splash_description">Obtén el pronóstico del clima para tu día.\nMantente informado y preparado.</string>
+    <string name="location_info">Bog, COL</string>
+    <string name="about_today">Tu clima hoy</string>
+    <string name="search_placeholder">Buscar ubicacion</string>
+    <string name="tomorrow_label">Mañana</string>
+    <string name="pas_tomorrow_label">Pasado mañana</string>
+    <string name="today_label">Hoy</string>
+    <string name="today_value">10°C</string>
+    <string name="tomorrow_value">10°C</string>
+    <string name="pas_tomorrow_value">10°C</string>
+
+</resources>
+
+
